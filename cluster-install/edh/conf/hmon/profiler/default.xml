@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profilerConfig>
+    <profilerDisplayConfig>
+        <topMapTasksCount>10</topMapTasksCount>
+        <topNodeCount>10</topNodeCount>
+        <topReduceTasksCount>10</topReduceTasksCount>
+    </profilerDisplayConfig>
+    <retentionPolicy>
+        <maxJobs>100</maxJobs>
+        <retentionTime>0</retentionTime>
+    </retentionPolicy>
+</profilerConfig>

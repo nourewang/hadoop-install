@@ -1,0 +1,8 @@
+HADOOP-1,security.admin.operations.protocol.acl,"mapred,root,hdfs supergroup"
+HADOOP-2,security.client.protocol.acl,"oozie,hive,mapred,root,hbase,hdfs supergroup"
+HADOOP-3,security.refresh.policy.protocol.acl,"mapred,root,hdfs supergroup"
+HADOOP-4,security.refresh.usertogroups.mappings.protocol.acl,"mapred,root,hdfs supergroup"
+HBASE-5,superuser,root
+MAPRED-6,mapred.queue.default.acl-administer-job,"oozie,hive,mapred,hbase "
+MAPRED-7,mapred.queue.default.acl-submit-job,"oozie,hive,mapred,hbase "
+OOZIE-8,oozie.service.AuthorizationService.admin.groups,oozie,root

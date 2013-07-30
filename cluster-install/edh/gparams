@@ -1,0 +1,14 @@
+hadoop_cluster_containhive=yes
+hadoop_cluster_centernode=desktop30
+hadoop_cluster_containha=no
+hadoop_cluster_containdrbd=no
+hadoop_cluster_vrrp_name=desktop30 
+hadoop_cluster_vrrp_ip=192.168.0.30 
+hadoop_cluster_machine_a=desktop30
+hadoop_cluster_ip_a=192.168.0.30
+hadoop_cluster_machine_b=
+hadoop_cluster_ip_b=
+cluster_name=Cluster
+zk_servers=desktop30,desktop101,desktop31
+rack_script=
+ganglia_hosts=desktop30

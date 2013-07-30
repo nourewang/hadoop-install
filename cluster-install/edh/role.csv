@@ -1,0 +1,4 @@
+cdh1,hadoop-hdfs-namenode,hadoop-hdfs,hadoop-libhdfs,hadoop-debuginfo,hadoop-httpfs,hadoop-yarn-nodemanager,zookeeper-server,hbase-regionserver,hbase-rest,hbase-thrift,hive-server2,hive-hbase,hive-jdbc
+cdh2,hadoop-hdfs-datanodehadoop-hdfs,hadoop-libhdfs,hadoop-debuginfo,hadoop-httpfs,hadoop-yarn-nodemanager,zookeeper-server,hbase-regionserver,hbase-rest,hbase-thrift,hive-server2,hive-hbase,hive-jdbc
+cdh3,hadoop-hdfs-datanodehadoop-hdfs,hadoop-libhdfs,hadoop-debuginfo,hadoop-httpfs,hadoop-yarn-nodemanager,zookeeper-server,hbase-regionserver,hbase-rest,hbase-thrift,hive-server2,hive-hbase,hive-jdbc
+cdh4,hadoop-hdfs-datanodehadoop-hdfs,hadoop-libhdfs,hadoop-debuginfo,hadoop-httpfs,hadoop-yarn-nodemanager,zookeeper-server,hbase-regionserver,hbase-rest,hbase-thrift,hive-server2,hive-hbase,hive-jdbc

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<alertConfig>
+    <hostNotificationTemplate>
+        <body>***** Intel Hadoop Manager *****
+Notification Type: $NOTIFICATIONTYPE$
+Host: $HOSTNAME$
+State: $HOSTSTATE$
+Address: $HOSTADDRESS$
+Info: $HOSTOUTPUT$
+
+Date/Time: $LONGDATETIME$
+</body>
+        <subject>** $NOTIFICATIONTYPE$ Host Alert: $HOSTNAME$ is $HOSTSTATE$ **</subject>
+    </hostNotificationTemplate>
+    <notificationOptions>
+        <checkPeriod>24x7</checkPeriod>
+        <enableHostNotifications>false</enableHostNotifications>
+        <maxCheckAttempts>4</maxCheckAttempts>
+        <normalCheckInterval>2</normalCheckInterval>
+        <notificationInterval>0</notificationInterval>
+        <notificationPeriod>24x7</notificationPeriod>
+        <retryCheckInterval>1</retryCheckInterval>
+    </notificationOptions>
+    <presetName>medium</presetName>
+    <serviceNotificationTemplate>
+        <body>***** Intel Hadoop Manager *****
+Notification Type: $NOTIFICATIONTYPE$
+
+ Metric: $SERVICEDESC$
+   Host: $HOSTALIAS$
+Address: $HOSTADDRESS$
+  State: $SERVICESTATE$
+ 
+Date/Time: $LONGDATETIME$
+Additional Info: $SERVICEOUTPUT$
+</body>
+        <subject>** $NOTIFICATIONTYPE$ Metric Alert: $HOSTALIAS$/$SERVICEDESC$ is $SERVICESTATE$ **</subject>
+    </serviceNotificationTemplate>
+</alertConfig>

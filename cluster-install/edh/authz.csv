@@ -1,0 +1,5 @@
+hadoop.enable,true
+hbase.enable,true
+mapreduce.enable,true
+hdfs.enable,true
+hive.enable,true
