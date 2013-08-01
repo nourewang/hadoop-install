@@ -41,8 +41,6 @@ case "$OS_DISTRIBUTOR" in
         [ "$OS_DISTRIBUTOR" == "an" ] && [ "$OS_RELEASE" == "4.2" ] && OS_RELEASE_ALIAS=6.3
 	  OS_DISTRIBUTOR_ALIAS=rhel
         FTP_DIR=/var/ftp/pub
-	  EDH_FTP_DIR=/var/ftp/pub/edh
-	  OS_FTP_DIR=/var/ftp/pub/os
 	  HTTP_BIN=httpd
 	  HTTP_DIR=/var/www/html
         REPO_BIN=yum
@@ -65,8 +63,6 @@ case "$OS_DISTRIBUTOR" in
 	OS_RELEASE_ALIAS=$OS_RELEASE
         OS_PACKAGE_DIR=suse/x86_64
         FTP_DIR=/srv/ftp
- 	  EDH_FTP_DIR=/srv/ftp/edh
-	  OS_FTP_DIR=/srv/ftp/os
 	  HTTP_BIN=apache2
         HTTP_DIR=/srv/www/htdocs
         REPO_BIN=zypper
@@ -105,9 +101,5 @@ for param_name in ${param_arr[@]}; do
     echo "export $param_name='$param_value'" >> $CONF_FILE
 done
 
-echo "
-shopt -s expand_aliases
-alias ssh='ssh -i /etc/edh/edh-id_rsa'
-alias scp='scp -i /etc/edh/edh-id_rsa'
-" >> $CONF_FILE
+>> $CONF_FILE
 

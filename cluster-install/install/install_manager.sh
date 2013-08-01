@@ -12,23 +12,20 @@ dns_alt_names=`hostname`
 export LD_LIBRARY_PATH=$path:$LD_LIBRARY_PATH
 
 echo -e "\nInstall Embrace(R) Distribution for Apache Hadoop* Software...\n"
-
 echo -e "\nHostname is $dns_alt_names, Time is `date +'%F %T'`, TimeZone is `date +'%Z %:z'`\n"
+
 
 . /etc/edh/installation.conf
 
-# config yum
-sh copy_file.sh
 sh config_yum_manager.sh $dns_alt_names
 sh cleanrepo.sh
 
-
-# install jdk expect and other
-echo -e "\nInstalling jdk , expect and other required packages ..."
-$REPO_BIN $REPO_YES_OPT -q install jdk expect $SSH_PKGS ntp nagios
+echo -e "\nInstalling jdk,expect,ntp,nagios,ssh and other required packages ..."
+$REPO_BIN $REPO_YES_OPT -q install jdk expect $SSH_PKGS ntp nagios nagios-plugins
 if ! rpm -q jdk expect $SSH_PKGS ntp>/dev/null ; then
     exit 1
 fi
+
 
 # set JAVA_HOME and PATH
 if [ -f /root/.bashrc ] ; then
@@ -47,9 +44,7 @@ if ( hostname -f >/dev/null 2>&1 ) && [ "`hostname -f`" != "$dns_alt_names" ]; t
 fi
 
 #set up ssh keys
-yes|ssh-keygen -t rsa -f /etc/edh/edh-id_rsa -N ""
-chmod 700 /etc/edh/edh-id_rsa.pub
-
+yes|ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ""
 [ ! -d /root/.ssh ] && ( mkdir /root/.ssh ) && ( chmod 700 /root/.ssh )
 
 sh $script_dir/config_ssh_local.sh

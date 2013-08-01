@@ -12,15 +12,16 @@ iptables -F
 
 echo "[cloudera-cdh4]" >/etc/yum.repos.d/cloudera-cdh4.repo
 echo "name=cdh4" >>/etc/yum.repos.d/cloudera-cdh4.repo
-echo "baseurl=ftp://192.168.0.254/pub/cdh/4" >>/etc/yum.repos.d/cloudera-cdh4.repo
+#echo "baseurl=ftp://192.168.0.254/pub/cdh/4" >>/etc/yum.repos.d/cloudera-cdh4.repo
+echo "baseurl=http://localhost/edh/" >>/etc/yum.repos.d/cloudera-cdh4.repo
 echo "gpgcheck = 0" >>/etc/yum.repos.d/cloudera-cdh4.repo
 
 yum clean all
 
 yum install -y hadoop  hadoop-debuginfo hadoop-hdfs-namenode hadoop-hdfs-datanode hadoop-hdfs-secondarynamenode hadoop-mapreduce-historyserver hadoop-yarn hadoop-yarn-resourcemanager  hadoop-yarn-nodemanager hive hive-metastore hive-server2 hive-jdbc zookeeper-server zookeeper
 
-wget ftp://192.168.0.30/pub/idh/hadoop_related/common/jdk-1.6.0_31-fcs.x86_64.rpm
-yum install jdk-1.6.0_31-fcs.x86_64.rpm
+#wget ftp://192.168.0.30/pub/idh/hadoop_related/common/jdk-1.6.0_31-fcs.x86_64.rpm
+#yum install jdk-1.6.0_31-fcs.x86_64.rpm
 
 if [ -f /root/.bashrc ] ; then
     sed -i '/^export[[:space:]]\{1,\}JAVA_HOME[[:space:]]\{0,\}=/d' /root/.bashrc
@@ -59,25 +60,17 @@ sed -i "s|HOSTNAME|$HOSTNAME|g" /etc/hive/conf/hive-site.xml
 
 
 echo "format namenode"
-rm -rf /hadoop/dfs/name /hadoop/dfs/data /hadoop/dfs/namesecondary
-
-mkdir -p /hadoop/dfs/name
-chown -R hdfs:hdfs /hadoop/dfs/name
-chmod 700 /hadoop/dfs/name
-
-mkdir -p /hadoop/dfs/data
-chown -R hdfs:hdfs /hadoop/dfs/data
-chmod 700 /hadoop/dfs/data
-
-mkdir -p /hadoop/dfs/namesecondary
-chown -R hdfs:hdfs /hadoop/dfs/namesecondary
-chmod 700 /hadoop/dfs/namesecondary
+rm -rf /hadoop/dfs
+mkdir -p /hadoop/dfs/{name,data,namesecondary}
+chown -R hdfs:hdfs /hadoop/dfs
+chmod -R 700 /hadoop/dfs/
 
 
 sh start.sh stop
-rm -rf /hadoop/dfs/name/current
 su -s /bin/bash hdfs -c 'yes Y | hadoop namenode -format >> /tmp/nn.format.log 2>&1'
 
+service hadoop-hdfs-namenode start
+sleep 5
 
 su -s /bin/bash hdfs -c "hadoop fs -chmod a+rw /"
 while read dir user group perm
@@ -86,13 +79,15 @@ do
      echo "[IM_CONFIG_INFO]: ."
 done << EOF
 /tmp hdfs hadoop 1777 
+/tmp/hadoop-yarn mapred mapred 777
+/var hdfs hadoop 755 
+/var/log yarn mapred 1775 
+/var/log/hadoop-yarn/apps yarn mapred 1777
+/hbase hbase hadoop 755
 /user hdfs hadoop 777
-/user/history yarn hadoop 1777
-/user/history/done yarn hadoop 777
-/user/root root hadoop 755
-/user/hive hive hadoop 755 
-/user/hive/warehouse hive hadoop 777
-/yarn yarn mapred 755
+/user/history mapred hadoop 1777
+/user/root root hadoop 777
+/user/hive hive hadoop 777 
 EOF
 
 echo "start hadoop"

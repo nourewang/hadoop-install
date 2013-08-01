@@ -5,6 +5,7 @@ fi
 
 HOSTNAME=`hostname`
 PASSWORD='redhat'
+export PDSH_SSH_ARGS_APPEND="-i /etc/edh/edh-id_rsa"
 
 cd install
 mkdir -p /etc/edh
@@ -51,7 +52,7 @@ sed -i "s|HOSTNAME|$HOSTNAME|g" conf-template/hive/conf/hive-site.xml
 sed -i "s|HOSTNAME|$HOSTNAME|g" conf-template/hbase/conf/hbase-site.xml
 
 for node in $NODELIST ;do
-	ssh -q -i  /etc/edh/edh-id_rsa root@$node  "
+	ssh -q root@$node  "
 		rm -rf /hadoop/dfs/{name,data,namesecondary} /hadoop/yarn/local
 		mkdir -p /hadoop/dfs/{name,data,namesecondary} /hadoop/yarn/local
 
@@ -67,10 +68,10 @@ for node in $NODELIST ;do
 		chown -R yarn:yarn /hadoop/yarn/local
 		chmod 700 /hadoop/yarn/local
 	"
-	scp -q -i  /etc/edh/edh-id_rsa  conf-template/hadoop/conf/* root@$node:/etc/hadoop/conf
-	scp -q -i  /etc/edh/edh-id_rsa  conf-template/hbase/conf/* root@$node:/etc/hbase/conf
-	scp -q -i  /etc/edh/edh-id_rsa  conf-template/hive/conf/* root@$node:/etc/hive/conf
-	scp -q -i  /etc/edh/edh-id_rsa  conf-template/zookeeper/conf/* root@$node:/etc/zookeeper/conf
+	scp -q conf-template/hadoop/conf/* root@$node:/etc/hadoop/conf
+	scp -q conf-template/hbase/conf/* root@$node:/etc/hbase/conf
+	scp -q conf-template/hive/conf/* root@$node:/etc/hive/conf
+	scp -q conf-template/zookeeper/conf/* root@$node:/etc/zookeeper/conf
 done
 
 

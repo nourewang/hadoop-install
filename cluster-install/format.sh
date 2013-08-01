@@ -1,7 +1,7 @@
 echo "format namenode"
 
 for server in cdh1 cdh2 cdh3 cdh4 ;do
-	ssh -q -i  /etc/edh/edh-id_rsa root@$server  "
+	ssh -q root@$server  "
 		rm -rf /hadoop/dfs/{name,data,namesecondary} /hadoop/yarn/local
 		mkdir -p /hadoop/dfs/{name,data,namesecondary} /hadoop/yarn/local
 

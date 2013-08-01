@@ -2,7 +2,6 @@
 
 . /etc/edh/installation.conf
 
-# $1 for client hostname of ip; $2 for ntp server hostname or ip.
 if [ $# != 2 ]; then
         echo "USAGE: 
         ./config_ntp_client.sh CLIENT SERVER_NAME             #use existing DNS server to manage hostname resolving
@@ -16,8 +15,8 @@ script_dir=`dirname $0`
 export config_log=$IM_CONFIG_LOGDIR/node-config.log
 
 #set up client timezone
-scp /etc/localtime root@$ntp_client:/etc/localtime
-scp /etc/sysconfig/clock root@$ntp_client:/etc/sysconfig/clock
+scp -q /etc/localtime root@$ntp_client:/etc/localtime
+scp -q /etc/sysconfig/clock root@$ntp_client:/etc/sysconfig/clock
 
 ssh root@$ntp_client '
     echo "[IM_CONFIG_PROCESS]: Synchronize time and timezone" | tee -a '$config_log'

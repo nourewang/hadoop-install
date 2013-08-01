@@ -37,9 +37,9 @@ function clean_repo_file {
 	cd - >/dev/null
 }
 
-function select_os_repo {
-	echo -e "\nA Linux OS yum repository is needed for Intel Hadoop Installation and cluster management."
-	echo -e "The file DEP_OS_PKG at the root of this installation folder, shows the list of dependent Linux OS packages.\n"
+function select_repo {
+	REPO=$1
+	echo -e "\nA $REPO yum repository is needed for Intel Hadoop Installation and cluster management."
 	create_flag="undef"
 	while [ "$create_flag" != "yes" -a "$create_flag" != "no" ]
 	do
@@ -54,37 +54,31 @@ function select_os_repo {
 				exit 1
 			fi
 			
-			echo -e "[os]\nname = Linux OS packages\nbaseurl = file://$OS_FTP_DIR\nproxy = _none_\ngpgcheck = 0" > $REPO_CONFDIR/os.repo
 			# install vsftpd and createrepo which will be used for creating yum repository
 			yum clean all > /dev/null
 			echo "Installing vsftpd and createrepo for building repository..."
 			yum install vsftpd createrepo -y -q
-			echo "Creating Linux OS repository..."
-			createrepo $OS_FTP_DIR
-			echo -e "[os]\nname = Linux OS packages\nbaseurl = ftp://$server_ip/pub/os\nproxy = _none_\ngpgcheck = 0" > $REPO_CONFDIR/os.repo
+			echo "Creating $REPO repository..."
+			createrepo $FTP_DIR/$REPO
+			echo -e "[$REPO]\nname = $REPO packages\nbaseurl = ftp://$server_ip/pub/$REPO\nproxy = _none_\ngpgcheck = 0" > $REPO_CONFDIR/$REPO.repo
 		fi
 		if [ "$create_flag" == "no" ]; then
-			read -p "Please input URL of the existing Linux OS repository: " repourl
-			echo -e "[os]\nname = Linux OS packages\nbaseurl = $repourl\nproxy = _none_\ngpgcheck = 0" > $REPO_CONFDIR/os.repo
+			read -p "Please input URL of the existing $REPO repository: " repourl
+			echo -e "[$REPO]\nname = $REPO packages\nbaseurl = $repourl\nproxy = _none_\ngpgcheck = 0" > $REPO_CONFDIR/$REPO.repo
 			yum clean all > /dev/null 2>&1
 			if ! yum install vsftpd -q -y; then
-				echo "Couldn't find vsftpd packages. Given Linux OS repository unavailable! "
+				echo "Couldn't find vsftpd packages. Given $REPO repository unavailable! "
 				create_flag="undef"
 			fi
 		fi
 	done
 }
 
-#stop selinux and iptables
-#echo "Disable selinux and iptables..."
-service iptables stop >/dev/null 2>&1
-chkconfig iptables off >/dev/null 2>&1
-sed -i "s/.*SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config >/dev/null 2>&1
-setenforce 0 >/dev/null 2>&1
-
 clean_repo_file
 
-select_os_repo
+select_repo os
+
+select_repo edh
 
 #start vsftpd, if previouslly running, stop it first
 if service vsftpd status >/dev/null 2>&1; then
@@ -93,23 +87,3 @@ fi
 service vsftpd start
 chkconfig --add vsftpd >/dev/null
 chkconfig vsftpd on >/dev/null
-
-# add edh.repo on the management node for edh repository.
-os_version="$OS_DISTRIBUTOR_ALIAS$OS_RELEASE_ALIAS"
-echo "
-[edh]
-name = edh and related packages
-baseurl = ftp://$server_ip/pub/edh
-proxy = _none_
-gpgcheck = 0
-" > $REPO_CONFDIR/edh.repo
-
-if [ -d "$FTP_DIR/os_related/$os_version" ]; then
-  echo "
-[ospkg]
-name = related os packages
-baseurl = ftp://$server_ip/pub/os_related/$os_version
-proxy = _none_
-gpgcheck = 0
-" >> $REPO_CONFDIR/edh.repo
-fi
