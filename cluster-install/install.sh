@@ -89,13 +89,15 @@ do
      echo "[IM_CONFIG_INFO]: ."
 done << EOF
 /tmp hdfs hadoop 1777 
+/tmp/hadoop-yarn mapred mapred 777
+/var hdfs hadoop 755 
+/var/log yarn mapred 1775 
+/var/log/hadoop-yarn/apps yarn mapred 1777
+/hbase hbase hadoop 755
 /user hdfs hadoop 777
-/user/history yarn hadoop 1777
-/user/history/done yarn hadoop 777
-/user/root root hadoop 755
-/user/hive hive hadoop 755 
-/user/hive/warehouse hive hadoop 777
-/yarn yarn mapred 755
+/user/history mapred hadoop 1777
+/user/root root hadoop 777
+/user/hive hive hadoop 777
 EOF
 
 echo "start hadoop"
