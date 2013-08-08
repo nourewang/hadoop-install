@@ -32,6 +32,7 @@ hadoop-install
 ## How to use
 
 * all-in-one
+
 open install.sh and modify repo's baseurl:
 
 	echo "[cloudera-cdh4]" >/etc/yum.repos.d/cloudera-cdh4.repo
