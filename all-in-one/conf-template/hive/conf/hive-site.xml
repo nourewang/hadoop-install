@@ -28,7 +28,7 @@
 <!-- Hive Execution Parameters -->
 <property>
   	<name>javax.jdo.option.ConnectionURL</name>
-    	<value>jdbc:postgresql://HOSTNAME/metastore</value>
+    	<value>jdbc:postgresql://localhost/metastore</value>
 </property>
      
 <property>
@@ -62,12 +62,12 @@
 
 <property>
   	<name>hive.metastore.uris</name>
-    	<value>thrift://HOSTNAME:9083</value>
+    	<value>thrift://localhost:9083</value>
 </property>
 
 <property>
 	<name>yarn.resourcemanager.resource-tracker.address</name>
-	<value>HOSTNAME:8031</value>
+	<value>localhost:8031</value>
 </property>
 <property>
 	<name>hive.metastore.warehouse.dir</name>

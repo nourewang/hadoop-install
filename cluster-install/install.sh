@@ -5,7 +5,6 @@ fi
 
 HOSTNAME=`hostname`
 PASSWORD='redhat'
-export PDSH_SSH_ARGS_APPEND="-i /etc/edh/edh-id_rsa"
 
 cd install
 mkdir -p /etc/edh
@@ -37,19 +36,15 @@ sh install_client.sh
 
 cd ..
 
-cp -f  conf-template/hadoop/conf/core-site.xml.template  conf-template/hadoop/conf/core-site.xml
-cp -f  conf-template/hadoop/conf/hdfs-site.xml.template  conf-template/hadoop/conf/hdfs-site.xml
-cp -f  conf-template/hadoop/conf/mapred-site.xml.template  conf-template/hadoop/conf/mapred-site.xml
-cp -f  conf-template/hadoop/conf/yarn-site.xml.template  conf-template/hadoop/conf/yarn-site.xml
-cp -f  conf-template/hive/conf/hive-site.xml.template  conf-template/hive/conf/hive-site.xml
-cp -f  conf-template/hbase/conf/hbase-site.xml.template  conf-template/hbase/conf/hbase-site.xml
-
 sed -i "s|HOSTNAME|$HOSTNAME|g" conf-template/hadoop/conf/core-site.xml
 sed -i "s|HOSTNAME|$HOSTNAME|g" conf-template/hadoop/conf/hdfs-site.xml
 sed -i "s|HOSTNAME|$HOSTNAME|g" conf-template/hadoop/conf/mapred-site.xml
 sed -i "s|HOSTNAME|$HOSTNAME|g" conf-template/hadoop/conf/yarn-site.xml
 sed -i "s|HOSTNAME|$HOSTNAME|g" conf-template/hive/conf/hive-site.xml
 sed -i "s|HOSTNAME|$HOSTNAME|g" conf-template/hbase/conf/hbase-site.xml
+
+sed -i "s|HOSTNAME|$HOSTNAME|g" /etc/hadoop/conf/slaves
+sed -i "s|HOSTNAME|$HOSTNAME|g" /etc/hbase/conf/regionservers
 
 for node in $NODELIST ;do
 	ssh -q root@$node  "

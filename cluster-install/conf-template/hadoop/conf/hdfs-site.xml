@@ -8,7 +8,7 @@
   </property>
   <property>
     <name>dfs.https.address</name>
-    <value>cdh1:50470</value>
+    <value>HOSTNAME:50470</value>
   </property>
   <property>
     <name>dfs.https.port</name>
@@ -16,7 +16,7 @@
   </property>
   <property>
     <name>dfs.namenode.http-address</name>
-    <value>cdh1:50070</value>
+    <value>HOSTNAME:50070</value>
   </property>
   <property>
     <name>dfs.replication</name>

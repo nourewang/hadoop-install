@@ -4,23 +4,23 @@
 <configuration>
   <property>
   	<name>yarn.resourcemanager.resource-tracker.address</name>
-  	<value>cdh1:8031</value>
+  	<value>HOSTNAME:8031</value>
   </property>
   <property>
     <name>yarn.resourcemanager.address</name>
-    <value>cdh1:8032</value>
+    <value>HOSTNAME:8032</value>
   </property>
   <property>
     <name>yarn.resourcemanager.admin.address</name>
-    <value>cdh1:8033</value>
+    <value>HOSTNAME:8033</value>
   </property>
   <property>
     <name>yarn.resourcemanager.scheduler.address</name>
-    <value>cdh1:8030</value>
+    <value>HOSTNAME:8030</value>
   </property>
   <property>
     <name>yarn.resourcemanager.webapp.address</name>
-    <value>cdh1:8088</value>
+    <value>HOSTNAME:8088</value>
   </property>
   <property>
     <name>yarn.resourcemanager.client.thread-count</name>

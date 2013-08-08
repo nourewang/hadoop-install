@@ -100,11 +100,11 @@
   </property>
   <property>
     <name>mapreduce.jobhistory.address</name>
-    <value>HOSTNAME:10020</value>
+    <value>localhost:10020</value>
   </property>
   <property>
     <name>mapreduce.jobhistory.webapp.address</name>
-    <value>HOSTNAME:19888</value>
+    <value>localhost:19888</value>
   </property>
   <property>
     <name>mapred.child.java.opts</name>

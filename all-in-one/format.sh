@@ -1,16 +1,18 @@
 echo "format namenode"
 
-rm -rf /hadoop/dfs
-mkdir -p /hadoop/dfs/{name,data,namesecondary}
-chown -R hdfs:hdfs /hadoop/dfs
-chmod -R 700 /hadoop/dfs/
-
+echo "format namenode"
 sh start.sh stop
-rm -rf /hadoop/dfs/name/current
+
+rm -rf /hadoop/dfs /var/lib/zookeeper
+mkdir -p /hadoop/dfs/{name,data,namesecondary} /var/lib/zookeeper
+chown -R hdfs:hdfs /hadoop/dfs && chmod -R 700 /hadoop/dfs/
+chown -R zookeeper:zookeeper /var/lib/zookeeper && chmod -R 700 /var/lib/zookeeper
+
+service zookeeper-server init --myid=1
+
 su -s /bin/bash hdfs -c 'yes Y | hadoop namenode -format >> /tmp/nn.format.log 2>&1'
 
 service hadoop-hdfs-namenode start
-
 sleep 5
 
 su -s /bin/bash hdfs -c "hadoop fs -chmod a+rw /"

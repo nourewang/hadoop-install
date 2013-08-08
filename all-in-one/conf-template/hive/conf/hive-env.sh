@@ -10,8 +10,6 @@
    fi
  fi
 
-HADOOP_OPTS="$HADOOP_OPTS -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8074"
-
 # The heap size of the jvm stared by hive shell script can be controlled via:
 #
 export HADOOP_HEAPSIZE=256

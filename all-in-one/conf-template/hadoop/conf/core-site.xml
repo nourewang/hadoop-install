@@ -4,11 +4,11 @@
 <configuration>
   <property>
     <name>fs.defaultFS</name>
-    <value>hdfs://HOSTNAME:8020</value>
+    <value>hdfs://localhost:8020</value>
   </property>
   <property>
     <name>fs.trash.interval</name>
-    <value>1</value>
+    <value>14400</value>
   </property>
   <property>
     <name>io.file.buffer.size</name>

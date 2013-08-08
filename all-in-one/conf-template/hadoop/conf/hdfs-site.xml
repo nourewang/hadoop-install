@@ -8,7 +8,7 @@
   </property>
   <property>
     <name>dfs.https.address</name>
-    <value>HOSTNAME:50470</value>
+    <value>localhost:50470</value>
   </property>
   <property>
     <name>dfs.https.port</name>
@@ -16,7 +16,7 @@
   </property>
   <property>
     <name>dfs.namenode.http-address</name>
-    <value>HOSTNAME:50070</value>
+    <value>localhost:50070</value>
   </property>
   <property>
     <name>dfs.replication</name>
@@ -27,7 +27,7 @@
     <value>134217728</value>
   </property>
   <property>
-    <name>dfs.client.use.datanode.hostname</name>
+    <name>dfs.client.use.datanode.localhost</name>
     <value>false</value>
   </property>
   <property>
